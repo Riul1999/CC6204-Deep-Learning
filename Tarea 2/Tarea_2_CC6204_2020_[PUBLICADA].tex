@@ -1,0 +1,1080 @@
+
+    
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    \usepackage[breakable]{tcolorbox}
+    \tcbset{nobeforeafter} % prevents tcolorboxes being placing in paragraphs
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Tarea\_2\_CC6204\_2020\_[PUBLICADA]}
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \newcommand{\prompt}[4]{
+        \llap{{\color{#2}[#3]: #4}}\vspace{-1.25em}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{tarea-2-backpropagation-descenso-de-gradiente-y-entrenamiento-cc6204-deep-learning-universidad-de-chile}{%
+\section{\texorpdfstring{Tarea 2: Backpropagation, descenso de gradiente
+y entrenamiento CC6204 Deep Learning, Universidad de
+Chile}{Tarea 2: Backpropagation, descenso de gradiente y entrenamiento   CC6204 Deep Learning, Universidad de Chile}}\label{tarea-2-backpropagation-descenso-de-gradiente-y-entrenamiento-cc6204-deep-learning-universidad-de-chile}}
+
+\textbf{Fecha de entrega: 16 de octubre de 2020
+(\href{https://colab.research.google.com/drive/1a44G8JIfuaAXmare28dCDT1gvUV1CuDP}{Hoja
+de respuestas})}
+
+En esta tarea programarás backpropagation para el caso específico de las
+redes que construiste en la
+\href{https://colab.research.google.com/drive/1aeuSRjj_kQ_uFEBSJ9bRuyr4G4MY4FAi}{Tarea
+1} (si tuviste problemas resolviendo la Tarea 1 puedes usar
+\href{https://colab.research.google.com/drive/1whxzPx0jBRu2v1GD-s_VhhYS-w3Tlu9E}{esta
+solución tipo} que preparó el cuerpo docente). Además comenzarás a
+entrenar la red con descenso de gradiente, que también tendrás que
+programar.
+
+Te recomendamos que repases la materia de las clases de backpropagation.
+En particular para resolver esta tarea te puedes apoyar en el siguiente
+material: * \href{https://www.youtube.com/watch?v=G4dnRSSC6Kw}{Clase
+04-2020: Descenso de Gradiente para encontrar los parámetros de una
+red.} * \href{https://www.youtube.com/watch?v=1EUAoM1EhM0}{Clase
+05-2020: Introducción a Backpropagation} *
+\href{https://www.youtube.com/watch?v=Gp2rY7LvTyQ}{Clase 06-2020:
+Continuación Backpropagation}
+
+Algunos videos de versiones pasadas del curso que te pueden servir
+también de apoyo son los siguientes (los actualizaremos con la versión
+2020 cuando los tengamos disponibles): *
+\href{https://www.youtube.com/watch?v=lnYAVf1UkU8}{Entropia Cruzada,
+funcion de pérdida y tensores (2018)} *
+\href{https://www.youtube.com/watch?v=atQHDde309k}{Derivando tensores y
+backpropagation a mano (2018)}
+
+IMPORTANTE: A menos que se exprese lo contrario, sólo podrás utilizar
+las clases y funciones en el módulo
+\href{https://pytorch.org/docs/stable/torch.html}{\texttt{torch}}.
+
+(por Jorge Pérez, https://github.com/jorgeperezrojas,
+{[}@perez{]}(https://twitter.com/perez))
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Este notebook está pensado para correr en CoLaboratory. }
+\PY{c+c1}{\PYZsh{} Lo único imprescindible por importar es torch }
+\PY{k+kn}{import} \PY{n+nn}{torch}
+
+\PY{c+c1}{\PYZsh{} Posiblemenete quieras instalar e importar ipdb para debuggear.}
+\PY{c+c1}{\PYZsh{} Si es así, descomenta lo siguiente:}
+\PY{c+c1}{\PYZsh{} !pip install \PYZhy{}q ipdb}
+\PY{c+c1}{\PYZsh{} import ipdb}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{parte-1-preliminares-funciones-de-activaciuxf3n-y-funciuxf3n-de-error}{%
+\section{Parte 1: Preliminares: funciones de activación y función de
+error}\label{parte-1-preliminares-funciones-de-activaciuxf3n-y-funciuxf3n-de-error}}
+
+    \hypertarget{a-derivando-las-funciones-de-activaciuxf3n}{%
+\subsection{1a) Derivando las funciones de
+activación}\label{a-derivando-las-funciones-de-activaciuxf3n}}
+
+En esta parte debes calcular a mano las derivadas de las funciones
+\texttt{relu}, \texttt{swish} y \texttt{celu} que usamos en la
+\href{https://colab.research.google.com/drive/1aeuSRjj_kQ_uFEBSJ9bRuyr4G4MY4FAi}{Tarea
+1}. Recuerda que \texttt{swish} y \texttt{celu} tienen ambas parámetros
+adicionales así que debes calcular las derivadas (parciales) con
+respecto a ellos también. Intenta expresar las derivadas en términos de
+aplicaciones de la misma función (o sub expresiones de esta). Por
+ejemplo, si derivas la función \(\text{sigmoid}(x)\) (hazlo! es un buen
+ejercicio) encontrarás que su derivada se puede expresar como:
+
+\begin{equation}
+\frac{\partial\ \text{sigmoid}(x)}{\partial x}\; =\; \text{sigmoid}(x)\big(1 - \text{sigmoid}(x)\big)
+\end{equation}
+
+Usa la
+\href{https://colab.research.google.com/drive/1a44G8JIfuaAXmare28dCDT1gvUV1CuDP}{Hoja
+de respuesta} para incluir tus expresiones.
+
+    \hypertarget{b-entropuxeda-cruzada}{%
+\subsection{1b) Entropía Cruzada}\label{b-entropuxeda-cruzada}}
+
+Comenzaremos haciendo una función para computar la pérdida de nuestra
+red. Recuerda que para dos distribuciones de probabilidad discreta
+\(p(x)\) y \(q(x)\) la entropía cruzada (cross entropy) entre \(p\) y
+\(q\) está dada por
+
+\begin{equation}
+\it{CE}(p,q)=\sum_{x}p(x)\log \bigg(\frac{1}{q(x)}\bigg)=- \sum_{x}p(x)\log q(x)
+\end{equation} donde \(x\) varía sobre todos los posibles valores para
+los cuales la distribución está definida.
+
+En esta parte debes programar la función \texttt{CELoss} que recibe
+tensores \(Q_{ij}\) y \(P_{ij}\) (de las mismas dimensiones) y calcula
+el promedio de las entropías cruzadas de las distribuciones \(p_i\) y
+\(q_i\) de la siguiente forma
+
+\begin{equation}
+\it{CELoss}(Q,P)=\frac{1}{N}\sum_{i}\it{CE}(p_{i}, q_{i})
+\end{equation} donde \(p_i(x)=P_{ix}\), \(q_i(x)=Q_{ix}\) y \(N\) es el
+tamaño de la primera dimension de los tensores (dimension \texttt{0}).
+Nota que el resultado es un escalar. Nota también el orden de \(Q\) y
+\(P\) en \(\it{CELoss}(Q,P)\). Esto no es un error, sino es la forma
+standard de usar la entropía cruzada como una función de error, en donde
+el primer argumento (\(Q\)) es la aproximación (distribución de
+probabilidad erronea) y el segundo argumento (\(P\)) es el valor al que
+nos queremos acercar (distribución de probabilidad real, o más
+percisamente en nuestro caso, distribución de probabilidad empírica).
+
+En nuestra implementación debemos evitar cualquier ocurrencia de
+\texttt{NaN} debido a valores en nuestras distribuciones de probabilidad
+excesivamente pequeños al calcular \texttt{torch.log}. Estos valores
+deberían devolver números negativos demasiado pequeños para procesar y
+dan como resultado \texttt{NaN}. El valor épsilon limitará el valor
+mínimo del valor original cuando \texttt{estable=True}.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Tu código acá}
+\PY{k}{def} \PY{n+nf}{CELoss}\PY{p}{(}\PY{n}{Q}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{estable}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{)}
+  \PY{k}{pass}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{c-opcional-entropuxeda-cruzada-categuxf3rica}{%
+\subsection{1c) Opcional: Entropía Cruzada
+Categórica}\label{c-opcional-entropuxeda-cruzada-categuxf3rica}}
+
+La entropía cruzada es un concepto muy general pero en el caso de
+entrenamiento la usaremos como una función de error entre una
+distribución de probabilidad general \(Q\) sobre clases (la distribución
+que genera nuestra red) y una distribución \(P\) que siempre tiene toda
+la probabilidad asignada a una única clase (la etiqueta de
+entrenamiento). Esta observación permite calcular una función de error
+menos general pero más eficiente para nuestro caso. En esta parte
+programarás una versión alternativa de \texttt{CELoss} que llamaremos
+\texttt{CategoricalCELoss} y que recibirá dos parámetros
+\texttt{(Q,Target)} donde \texttt{Q} es como en el caso anterior y
+\texttt{Target} es un tensor con los índices de las etiquetas correctas.
+Tu implementación de esta parte debiera entregar los mismos resultados
+que la anterior si es que cambias \texttt{Target} por una matriz que
+tiene \texttt{1}s exactamente en los índices de las clases y \texttt{0}s
+en las otras posiciones.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Tu código acá}
+\PY{k}{def} \PY{n+nf}{CategoricalCELoss}\PY{p}{(}\PY{n}{Q}\PY{p}{,} \PY{n}{Target}\PY{p}{,} \PY{n}{estable}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{)}
+  \PY{k}{pass}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Esta parte (opcional), te servirá para entender y practicar dos formas
+de calcular la entropía cruzada lo que es importante pues distintas
+librerías de Deep Learning usan distintas estrategias para este cálculo
+en la práctica.
+
+Hay otras observaciones de cómo las librerías implementan esta función
+de error en la práctica y es importante entender cómo se deben utilizar
+en cada caso por eso te incentivamos a que completes esta parte opcional
+y que también investigues cómo lo hacen algunas librerías en la
+práctica. Por ejemplo, otro cambio que hace \texttt{pytorch} para hacer
+el proceso mas eficiente es combinar la capa final de clasificación de
+la red (la de softmax) con el cálculo que describimos arriba, en una
+única función
+\href{https://pytorch.org/docs/stable/nn.functional.html\#torch.nn.functional.cross_entropy}{torch.nn.functional.cross\_entropy}
+y lo integran también de esta forma dentro de la clase
+\href{https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html\#torch.nn.CrossEntropyLoss}{torch.nn.CrossEntropyLoss}
+
+    \hypertarget{parte-2-muxe1s-derivadas-y-back-propagation}{%
+\section{Parte 2: Más derivadas y back
+propagation}\label{parte-2-muxe1s-derivadas-y-back-propagation}}
+
+En esta parte comenzaremos a usar el algoritmo de back propagation para
+poder actualizar los parámetros de nuestra red neuronal (la que
+empezaste a construir en la Tarea 1). Nuestra red está dada por las
+ecuaciones
+
+\begin{eqnarray*}
+h^{(\ell)} & = & f^{(\ell)}(h^{(\ell-1)} W^{(\ell)}+b^{(\ell)}) \\
+\hat{y} & = & \text{softmax}(h^{(L)}U+c).
+\end{eqnarray*} Recuerda que en estas ecuaciones consideramos que el
+\(h^{(0)}\) es el tensor de input, digamos \(x\), y típicamente llamamos
+a \(\hat{y}\) como \(\hat{y}=\text{forward}(x)\).
+
+Para optimizar los parámetros de nuestra red usaremos la función de
+pérdida/error de entropía cruzada (ver la parte anterior). Dado un
+conjunto (mini batch) de ejemplos \(\{(x_1,y_1),\ldots,(x_B,y_B)\}\),
+llamemos \(x\) al tensor que contiene a todos los \(x_i\)'s
+\emph{apilados} en su dimensión \(0\). Nota que \(x\) tendrá una
+dimensión más que los \(x_i\)'s. Similarmente llamemos \(y\) al tensor
+que contiene a todos los \(y_i\)'s. La función de pérdida de la red se
+puede entonces escribir como
+
+\begin{equation}
+\cal L=\it{CELoss}(\hat{y},{y})
+\end{equation} donde \(\hat{y}=\text{forward}(x)\) y
+\(\it{CELoss}(\hat{y},{y})\) es la función de entropía cruzada aplicada
+a \(\hat{y}\) e \(y\). En esta parte computaremos las derivadas
+parciales
+
+\begin{equation}
+\frac{\partial \cal L}{\partial \theta}
+\end{equation} para cada parámetro \(\theta\) de nuestra red. 
+
+    \hypertarget{a-derivando-la-uxfaltima-capa}{%
+\subsection{2a) Derivando la última
+capa}\label{a-derivando-la-uxfaltima-capa}}
+
+Recuerda que \(\hat y = \text{softmax}(h^{(L)}U+c)\). Nuestro objetivo
+en esta parte es calcular la derivada de \(\cal L\) con respcto a \(U\),
+\(h^{(L)}\) y \(c\). Para esto llamemos primero
+
+\begin{equation}
+u^{(L+1)} = h^{(L)}U+c.
+\end{equation} Nota que con esto, nuestra predicción es simplemente
+\(\hat y=\text{softmax}(u^{(L+1)})\). Calcula la derivada (el
+\emph{gradiente}) de \(\cal L\) respecto a \(u^{(L+1)}\), y escribe un
+trozo de código usando las funcionalidades de \texttt{torch} que calcule
+el valor y lo almacene en una variable \texttt{dL\_duLm1}, suponiendo
+que cuentas con los tensores \texttt{y} e \texttt{y\_pred} (que
+representa a \(\hat y\)).
+
+    Puedes escribir tu cálculo acá (usa la
+\href{https://colab.research.google.com/drive/1a44G8JIfuaAXmare28dCDT1gvUV1CuDP}{Hoja
+de respuesta} para la entrega)
+
+\begin{equation}
+\frac{\partial \cal L}{\partial u^{(L+1)}} =
+\end{equation}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Para ir chequeando que al menos las dimensiones de los tensores son }
+\PY{c+c1}{\PYZsh{} consistentes usaremos las varibles *dummy* a continuación.}
+\PY{n}{B}\PY{p}{,} \PY{n}{C} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}
+\PY{n}{y} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{n}{C}\PY{p}{)}
+\PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{n}{C}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Acá tu trozo de código. }
+\PY{c+c1}{\PYZsh{} Primero agregamos algunas variables dummy para chequear }
+\PY{c+c1}{\PYZsh{} que al menos las dimensiones están correctas}
+\PY{n}{dimL} \PY{o}{=} \PY{l+m+mi}{40}
+\PY{n}{hL} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{n}{dimL}\PY{p}{)}
+\PY{n}{U} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{dimL}\PY{p}{,}\PY{n}{C}\PY{p}{)}
+\PY{n}{c} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{C}\PY{p}{)}
+\PY{n}{uLm1} \PY{o}{=} \PY{n}{hL} \PY{o}{@} \PY{n}{U} \PY{o}{+} \PY{n}{c}
+
+\PY{c+c1}{\PYZsh{} Ahora tu fórmula para el gradiente}
+\PY{n}{dL\PYZus{}duLm1} \PY{o}{=} \PY{k+kc}{None}
+
+\PY{c+c1}{\PYZsh{} El gradiente debe coincidir en dimensiones con la variable}
+\PY{k}{assert} \PY{n}{dL\PYZus{}duLm1}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{uLm1}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{b-derivando-la-uxfaltima-capa-continuaciuxf3n}{%
+\subsection{2b) Derivando la última capa
+(continuación)}\label{b-derivando-la-uxfaltima-capa-continuaciuxf3n}}
+
+Usa la derivada de \(\cal L\) con respecto a \(u^{(L+1)}\) y la regla de
+la cadena para encontrar las derivadas (\emph{gradientes}) de \(\cal L\)
+con respecto a \(U\), \(c\) y \(h^{(L)}\). Recuerda tener cuidado con
+los índices de los tensores, chequear que las dimensiones sean las
+correctas y cuando sea necesario usa
+\href{https://en.wikipedia.org/wiki/Einstein_notation}{la notación de
+Einstein} para simplificar tu vida. Escribe también un trozo de código
+para calcular estas derivadas y almacenarlas en \texttt{dL\_dU},
+\texttt{dL\_dc} y \texttt{dL\_dhL}.
+
+    Puedes escribir tu cálculo acá (usa la
+\href{https://colab.research.google.com/drive/1a44G8JIfuaAXmare28dCDT1gvUV1CuDP}{Hoja
+de respuesta} para la entrega)
+
+\begin{equation}
+\frac{\partial\cal L}{\partial U} = \ldots \\
+\end{equation}
+
+\begin{equation}
+\frac{\partial\cal L}{\partial c} = \ldots \\
+\end{equation}
+
+\begin{equation}
+\frac{\partial\cal L}{\partial h^{(L)}} = \ldots \\
+\end{equation}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Acá puedes probar tus cálculos usando código. }
+\PY{n}{dL\PYZus{}dU} \PY{o}{=} \PY{k+kc}{None}
+\PY{n}{dL\PYZus{}dc} \PY{o}{=} \PY{k+kc}{None}
+\PY{n}{dL\PYZus{}dhL} \PY{o}{=} \PY{k+kc}{None}
+
+\PY{c+c1}{\PYZsh{} El gradiente debe coincidir en dimensiones con las variables.}
+\PY{k}{assert} \PY{n}{dL\PYZus{}dU}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{U}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+\PY{k}{assert} \PY{n}{dL\PYZus{}dc}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{c}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+\PY{k}{assert} \PY{n}{dL\PYZus{}dhL}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{hL}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{c-derivando-desde-las-capas-escondidas}{%
+\subsection{2c) Derivando desde las capas
+escondidas}\label{c-derivando-desde-las-capas-escondidas}}
+
+Ahora derivaremos las capas escondidas en general para todas las
+funciones de activación que consideramos en esta tarea.
+\textbf{Importante: esta parte es larga no la empieces a hacer tarde}.
+Consideremos la capa \(k\), en este caso tenemos
+
+\begin{equation}
+h^{(k)} = f(h^{(k-1)}W^{(k)}+b^{(k)})
+\end{equation} done \(f\) es una de las funciones de activación
+\(\text{sig}, \text{tanh}, \text{relu}, \text{celu}, \text{swish}\). Lo
+que queremos es computar las derivadas parciarles de \(\cal L\) con
+respecto a \(W^{(k)}\), \(b^{(k)}\) y \(h^{(k-1)}\). Para esto
+consideremos
+
+\begin{equation}
+u^{(k)}=h^{(k-1)}W^{(k)}+b^{(k)}.
+\end{equation} Supondremos que ya tenemos computado (antes) el gradiente
+de \(\cal L\) con respecto a \(h^{(k)}\)
+(\(\partial \cal L/\partial h^{(k)}\)). Para cada función de activación
+de entre \(\text{relu}, \text{celu}, \text{swish}\), calcula primero
+
+\begin{equation}
+\frac{\partial \cal L}{\partial u^{(k)}}
+\end{equation} usando \(\partial \cal L/\partial h^{(k)}\) y luego usa
+\(\partial \cal L/\partial u^{(k)}\) y la regla de la cadena para
+calcular
+
+\begin{equation}
+\frac{\partial \cal L}{\partial W^{(k)}}, \frac{\partial \cal L}{\partial b^{(k)}}, \frac{\partial \cal L}{\partial h^{(k-1)}}. 
+\end{equation} Crea trozos de código para cada uno de los cálculos de
+los gradientes. Este código lo usaremos luego en la función
+\texttt{backward} de tu red.
+
+Usa la
+\href{https://colab.research.google.com/drive/1a44G8JIfuaAXmare28dCDT1gvUV1CuDP}{Hoja
+de respuesta} para tus cálculos
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Acá puedes probar tus cálculos usando código. }
+\PY{c+c1}{\PYZsh{} Primero agregamos algunas variables dummy para chequear }
+\PY{c+c1}{\PYZsh{} que al menos las dimensiones están correctas.}
+\PY{n}{dimk} \PY{o}{=} \PY{l+m+mi}{20}
+\PY{n}{dimkm1} \PY{o}{=} \PY{l+m+mi}{30}
+\PY{n}{hk} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{n}{dimk}\PY{p}{)}
+\PY{n}{Wk} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{dimk}\PY{p}{,}\PY{n}{dimkm1}\PY{p}{)}
+\PY{n}{bk} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{dimkm1}\PY{p}{)}
+\PY{n}{uk} \PY{o}{=} \PY{n}{hk} \PY{o}{@} \PY{n}{Wk} \PY{o}{+} \PY{n}{bk}
+\PY{n}{dL\PYZus{}dhkm1} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{n}{dimkm1}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Ahora tu fórmula para el gradiente.}
+\PY{c+c1}{\PYZsh{} Esto puedes repetirlo con tus expresiones para relu, celu, y swish.}
+\PY{n}{dL\PYZus{}duk} \PY{o}{=} \PY{k+kc}{None}
+\PY{n}{dL\PYZus{}dWk} \PY{o}{=} \PY{k+kc}{None}
+\PY{n}{dL\PYZus{}dbk} \PY{o}{=} \PY{k+kc}{None}
+\PY{n}{dL\PYZus{}dhk} \PY{o}{=} \PY{k+kc}{None}
+
+\PY{c+c1}{\PYZsh{} El gradiente debe coincidir en dimensiones con las variables.}
+\PY{k}{assert} \PY{n}{dL\PYZus{}dWk}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{Wk}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+\PY{k}{assert} \PY{n}{dL\PYZus{}dbk}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{bk}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+\PY{k}{assert} \PY{n}{dL\PYZus{}dhk}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{hk}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{parte-3-backpropagation-en-nuestra-red}{%
+\section{Parte 3: Backpropagation en nuestra
+red}\label{parte-3-backpropagation-en-nuestra-red}}
+
+En esta parte programaremos todos nuestros cálculos anteriores dentro
+del método \texttt{backward} de nuestra red.
+
+    \hypertarget{a-muxe9todo-backward}{%
+\subsection{\texorpdfstring{3a) Método
+\texttt{backward}}{3a) Método backward}}\label{a-muxe9todo-backward}}
+
+Programa un método \texttt{backward} dentro de la clase FFNN que hiciste
+para la Tarea 1. El método debiera recibir como entrada tres tensores
+\texttt{x}, \texttt{y}, \texttt{y\_pred}, y debiera computar todos los
+gradientes para cada uno de los parámetros de la red (con todas las
+suposiciones que hicimos en la Parte 3, incluyendo el uso de entropía
+cruzada como función de pérdida). Recuerda computar los gradientes
+también para capas escondidas con activaciones \(\text{sig}\) y
+\(\text{tanh}\).
+
+Podemos aprovecharnos de las funcionalidades de la clase
+\texttt{torch.nn.Parameter} para almacenar los resultados de cada
+gradiente. De hecho, cada objeto de la clase \texttt{torch.nn.Parameter}
+tiene un atributo \texttt{grad} que está pensado específicamente para
+almacenar los valores computados a medida que se hace backpropagation.
+Utiliza este atributo para almacenar el gradiente del parámetro
+correspondiente.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Tu código debiera continuar aquí }
+
+\PY{k}{class} \PY{n+nc}{FFNN}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+  \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{F}\PY{p}{,} \PY{n}{l\PYZus{}h}\PY{p}{,} \PY{n}{l\PYZus{}a}\PY{p}{,} \PY{n}{C}\PY{p}{)}\PY{p}{:}
+    \PY{k}{pass}
+  
+  \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} ya lo creaste en la parte anterior}
+    \PY{k}{pass}
+  
+  \PY{k}{def} \PY{n+nf}{backward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} computar acá todos los gradientes}
+    \PY{k}{pass}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{b-opcional-incluyendo-los-paruxe1metros-de-celu-y-swish}{%
+\subsection{\texorpdfstring{3b) Opcional: Incluyendo los parámetros de
+\texttt{celu} y
+\texttt{swish}}{3b) Opcional: Incluyendo los parámetros de celu y swish}}\label{b-opcional-incluyendo-los-paruxe1metros-de-celu-y-swish}}
+
+Si lo deseas, puedes agregar los parámetros de todas las activaciones
+\texttt{celu} y \texttt{swish} de tu red como parámetros. Para esto
+tendrás que agregar parámetros en el inicializador de la clase y
+computar las derivadas correspondientes en la función \texttt{backward}.
+
+    \hypertarget{c-opcional-chequeo-de-gradiente}{%
+\subsection{3c) Opcional: Chequeo de
+gradiente}\label{c-opcional-chequeo-de-gradiente}}
+
+Determinar si calculaste bien o no las derivadas puede ser un verdadero
+dolor de cabeza. Si no confías plenamente en tus capacidades para
+computar derivadas a mano (nadie debería), puedes usar una técnica muy
+útil para determinar si cometiste un error. La técnica se llama
+\textbf{chequeo de gradiente} y consiste en computar el gradiente de
+forma numérica y compararlo con la evaluación del gradiente computado de
+forma manual. Es una de las técnicas más útiles para \emph{debuggear}
+redes neuronales. En esta parte porgrmarás el chequeo de gradiente. Si
+bien esta parte es opcional, puede que te ahorre demasiados problemas
+tenerla programada para ir comprobando que no cometiste errores.
+
+La idea general de cómo implementar chequeo de gradiente es la
+siguiente: - Supongamos que todos los posilbes parámetros de tu red son
+\(\Theta=[\theta^{(1)},\theta^{(2)},\ldots, \theta^{(M)}]\), es decir
+pusimos los parámetros como un vector gigante. Entonces podemos pensar
+en la función de error como una función
+\(\mathcal{L}(\Theta)=\mathcal{L}([\theta^{(1)},\theta^{(2)},\ldots, \theta^{(M)}])\).
+- Elegimos al azar valores para cada parámetro, digamos
+\(\Theta_{ch}=[\theta_{ch}^{(1)},\theta_{ch}^{(2)},\ldots, \theta_{ch}^{(M)}]\).
+- Elegimos un valor fijo muy pequeño, digamos \(\varepsilon\).
+Típicamente \(\varepsilon\) puede ser cercano a \(10^{-7}\) o
+\(10^{-8}\). - Elegimos un índice \(i\) que presentará el parámetro para
+el que queremos chequear el gradiente. - Computamos los siguientes
+valores \begin{eqnarray}
+\mathcal{L}^{(i)}_{+\varepsilon} & = & 
+\mathcal{L}([\theta_{ch}^{(1)},\theta_{ch}^{(2)},\ldots,\theta_{ch}^{(i)}+\varepsilon,\ldots,\theta_{ch}^{(M)}]) \\
+\mathcal{L}^{(i)}_{-\varepsilon} & = & 
+\mathcal{L}([\theta_{ch}^{(1)},\theta_{ch}^{(2)},\ldots,\theta_{ch}^{(i)}-\varepsilon,\ldots,\theta_{ch}^{(M)}])
+\end{eqnarray} Nota para calcular estos valores necesitamos hacer dos
+pasadas hacia adelante de la red. - Computamos
+
+\begin{equation}
+\text{AppGrad}(\theta^{(i)}_{ch}) = \frac{\mathcal{L}^{(i)}_{+\varepsilon} - \mathcal{L}^{(i)}_{-\varepsilon}}{2\varepsilon}
+\end{equation} - Finalmente comparamos este valor con lo que nuestra
+función de backpropagation entrega para el mismo parámetro cuando
+hacemos la pasada hacia atrás (backward) evaluada para los mismos
+valores específicos, es decir comparamos
+\(\text{AppGrad}(\theta^{(i)}_{ch})\) con \begin{equation}
+\frac{\partial \mathcal{L}}{\partial \theta^{(i)}}\bigg|_{\Theta_{ch}}
+\end{equation} - Repetimos el proceso para todos los parámetros de la
+red.
+
+Si nuestras derivadas están bien calculadas, esperaríamos que la
+diferencia entre \(\text{AppGrad}(\theta^{(i)})\) y el gradiente que
+calcula nuestra función \texttt{backward} sea muy (muy) pequeña,
+típicamente cercana a \(\varepsilon\). Si es mucho más grande que
+\(\varepsilon\) tenemos que preocuparnos porque muy posiblemente
+tendremos un bug.
+
+Una forma alternativa de hacer el chequeo del gradiente es meter todos
+los \({\partial \mathcal{L}}/{\partial \theta^{(i)}}|_{\Theta_{ch}}\) en
+un vector, digamos \(\text{Grad}\), hacer lo mismo con todos los
+\(\text{AppGrad}(\theta^{(i)})\) y meterlos todos en un vector
+\(\text{AppGrad}\) y después chequear que los dos vectores sean
+relativamente cercanos haciendo
+
+\begin{equation}
+\frac{\|\text{Grad} - \text{AppGrad}\|^2}{\|\text{Grad}\|^2+\|\text{AppGrad}\|^2}
+\end{equation}
+
+Acá también esperamos que el valor resultante sea muy cercano a
+\(\varepsilon\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Tu código de chequeo de gradiente acá}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{parte-4-descenso-de-gradiente-y-entrenamiento}{%
+\section{Parte 4: Descenso de gradiente y
+entrenamiento}\label{parte-4-descenso-de-gradiente-y-entrenamiento}}
+
+En esta parte programaras el algoritmo de descenso de gradiente más
+común y entrenarás finalmente tu red para que encuentre parámetros que
+le permitan clasificar datos aleatorios (mas abajo podrás hacerlo
+opcionalmente también para MNIST).
+
+    \hypertarget{a-descenso-de-gradiente-estocuxe1stico}{%
+\subsection{4a) Descenso de gradiente
+(estocástico)}\label{a-descenso-de-gradiente-estocuxe1stico}}
+
+Construye una clase \texttt{SGD} que implemente el algoritmo de descenso
+de gradiente. El inicializador de la clase debe recibir al menos dos
+argumentos: un ``iterable'' de parámetros a los cuales aplicarles el
+descenso de gradiente, y un valor real \texttt{lr} correspondiente a la
+taza de aprendizaje para el descenso de gradiente. El único método que
+debes implementar es el método \texttt{step} que debe actualizar todos
+los parámetros. En este caso asumiremos que a cada parámetro ya se le
+han computado los gradientes (todos almacenados en el atributo
+\texttt{.grad} de cada parámetro). El uso de esta clase debiera ser como
+sigue:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# datos = iterador sobre pares de tensores x, y}
+\CommentTok{# red = objeto FFNN previamente inicializado}
+
+\NormalTok{optimizador }\OperatorTok{=}\NormalTok{ SGD(red.parameters(), }\FloatTok{0.001}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ x,y }\KeywordTok{in}\NormalTok{ datos:}
+\NormalTok{  y_pred }\OperatorTok{=}\NormalTok{ red.forward(x)}
+\NormalTok{  l }\OperatorTok{=}\NormalTok{ CELoss(y_pred, y)}
+\NormalTok{  red.backward(x, y, y_pred)}
+\NormalTok{  optimizador.step()}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Tu código debiera comenzar así}
+
+\PY{k}{class} \PY{n+nc}{SGD}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+  \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{parameters}\PY{p}{,} \PY{n}{lr}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} lo que sea necesario inicializar}
+    \PY{k}{pass}
+  
+  \PY{k}{def} \PY{n+nf}{step}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} actualiza acá los parámetros a partir del gradiente de cada uno}
+    \PY{k}{pass}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{b-datos-para-carga}{%
+\subsection{4b) Datos para carga}\label{b-datos-para-carga}}
+
+En esta parte crearás un conjunto de datos de prueba aleatorios para
+probar con tu red. La idea de partir con datos al azar es para que te
+puedas concentrar en encontrar posibles bugs en tu implementación antes
+de probar tu red con cosas más complicadas.
+
+Para esta parte debes crear una clase \texttt{RandomDataset} como
+subclase de \texttt{Dataset} (que se encuentra en el módulo
+\href{}{\texttt{torch.utils.data}}). Tu clase debe recibir en su
+inicializador la cantidad de ejemplos a crear, la cantidad de
+características de cada ejemplo, y la cantidad de clases en la función
+objetivo. Debes definir la función \texttt{\_\_len\_\_} que retorna el
+largo del dataset y la función \texttt{\_\_getitem\_\_} que permite
+acceder a un item específico de los datos. Cada elemento entregado por
+\texttt{\_\_getitem\_\_} debe ser un par \((x,y)\) con un único ejemplo,
+donde \(x\) es un tensor que representa a los datos de entrada
+(características) e \(y\) representa al valor esperado de la
+clasificación para esa entrada.
+
+Lo positivo de definir un conjunto de datos como \texttt{Dataset} es que
+luego puedes usar un \texttt{DataLoader} para iterar por paquetes sobre
+el dataset y entregarlos a una red (tal como lo hiciste en la Tarea 1
+para MNIST). El siguiente trozo de código de ejemplo muestra cómo
+debieras usar tu clase en conjunto con un \texttt{DataLoader}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dataset }\OperatorTok{=}\NormalTok{ RandomDataset(}\DecValTok{1000}\NormalTok{,}\DecValTok{200}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\NormalTok{data }\OperatorTok{=}\NormalTok{ DataLoader(dataset, batch_size}\OperatorTok{=}\DecValTok{4}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ x,y }\KeywordTok{in}\NormalTok{ data:}
+  \CommentTok{# x,y son paquetes de 4 ejemplos del dataset.}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{data} \PY{k}{import} \PY{n}{Dataset}\PY{p}{,} \PY{n}{DataLoader}
+
+\PY{c+c1}{\PYZsh{} Aquí tu código.}
+\PY{c+c1}{\PYZsh{} Tu clase debiera verse así}
+\PY{k}{class} \PY{n+nc}{RandomDataset}\PY{p}{(}\PY{n}{Dataset}\PY{p}{)}\PY{p}{:}
+  \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{N}\PY{p}{,} \PY{n}{F}\PY{p}{,} \PY{n}{C}\PY{p}{)}\PY{p}{:}
+    \PY{k}{pass}
+  
+  \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}len\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+    \PY{k}{pass}
+  
+  \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{i}\PY{p}{)}\PY{p}{:}
+    \PY{k}{pass}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{c-entrenando-la-red-con-datos-al-azar}{%
+\subsection{4c) Entrenando la red con datos al
+azar}\label{c-entrenando-la-red-con-datos-al-azar}}
+
+Por fin podrás crear un ciclo de entrenamiento. Para esto crea la
+función \texttt{entrenar\_FFNN} que recibe una red, un dataset, un
+optimizador, la cantidad de épocas por las que se quiere entrenar, el
+tamaño de los paquetes de ejemplos usados en el entrenamiento, y el
+dispositivo donde se correrá el loop. Puedes definir todos los
+argumentos adicionales que quieras para la función.
+
+Dentro de la función debes hacer tantas iteraciones sobre el dataset
+como la cantidad de épocas indicadas utilizando el optimizador para
+actualizar los parámetros de la red para cada paquete de ejemplos.
+Procura que todo el trabajo (forward y backward) se haga en el
+dispositivo indicado. Al finalizar, la función debe retornar una lista
+con el valor de la pérdida en cada iteración. Asegúrate de que la
+función muestre información relevante durante el entrenamiento (piensa
+en toda la información que te gustaría tener mientras la red entrena y
+muéstrala en pantalla). Si quieres, puedes agregar un parámetro
+\texttt{verbose} para indicar el nivel de información mostrada durante
+el entrenamiento.
+
+El uso de la función, y de todo tu código hasta ahora, debiera verse
+como sigue:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{F, C }\OperatorTok{=} \DecValTok{300}\NormalTok{, }\DecValTok{10}
+\NormalTok{red }\OperatorTok{=}\NormalTok{ FFNN(F, [}\DecValTok{50}\NormalTok{,}\DecValTok{30}\NormalTok{], [relu,sig], C)}
+\NormalTok{optimizador }\OperatorTok{=}\NormalTok{ SGD(red.parameters(), }\FloatTok{0.001}\NormalTok{)}
+\NormalTok{N }\OperatorTok{=} \DecValTok{1000}
+\NormalTok{dataset }\OperatorTok{=}\NormalTok{ RandomDataset(N, F, C)}
+\NormalTok{perdida }\OperatorTok{=}\NormalTok{ entrenar_FFNN(red, dataset, optimizador, epochs}\OperatorTok{=}\DecValTok{20}\NormalTok{, batch_size}\OperatorTok{=}\DecValTok{8}\NormalTok{, device}\OperatorTok{=}\StringTok{'cpu'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Tu código acá}
+\PY{k}{def} \PY{n+nf}{entrenar\PYZus{}FFNN}\PY{p}{(}\PY{n}{red}\PY{p}{,} \PY{n}{dataset}\PY{p}{,} \PY{n}{optimizador}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{device}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cuda}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+  \PY{k}{pass}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \#\#~4d) Graficando la pérdida/error en el tiempo
+
+Usa la librería
+\href{https://matplotlib.org/users/index.html}{\texttt{matplotlib}} para
+mostrar cómo varía la pérdida a medida que entrena tu red. Muestra al
+menos tres redes distintas entrenadas con el mismo conjunto de datos y
+compara la forma de aprendizaje. Intenta mostrar un caso que diferencie
+a las redes, cambiando su tamaño y también el tamaño de los datos de
+entrada.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Tu código acá}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{e-opcional-entrenando-tu-red-con-mnist}{%
+\subsection{4e) Opcional: Entrenando tu red con
+MNIST}\label{e-opcional-entrenando-tu-red-con-mnist}}
+
+Usa tu red para entrenar con los datos de MNIST. Mira cómo usamos este
+conjunto de datos en la Tarea 1, pero esta vez usa el argumento
+\texttt{train=True} cuando descargues el dataset. Grafica la pérdida
+para distintas opciones de redes (más o menos capas, más o menos
+neuronas por capas, distintos tipos de funciones de activación, etc.) y
+compara un par de opciones diferentes. Trata de explicar las diferencias
+(o la ausencia de diferencias).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Tu código de carga de datos, creación de la red, }
+\PY{c+c1}{\PYZsh{} entrenamiento y reportes acá}
+\end{Verbatim}
+\end{tcolorbox}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
